@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mzelouan <mzelouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/20 21:40:49 by mzelouan          #+#    #+#             */
-/*   Updated: 2024/04/25 10:00:05 by mzelouan         ###   ########.fr       */
+/*   Created: 2024/04/25 09:12:52 by mzelouan          #+#    #+#             */
+/*   Updated: 2024/04/25 09:59:48 by mzelouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "../includes/minitalk.h"
 
-# include <signal.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
+char	*ft_strdup(char *s)
+{
+	size_t	slen;
+	size_t	i;
+	char	*p;
 
-void	ft_putstr_fd(char *s, int fd);
-void	ft_putnbr_fd(int n, int fd);
-void	ft_putchar_fd(char c, int fd);
-int		ft_atoi(const char *str);
-void	ft_print_error(char *error);
-int		ft_strlen(char *s);
-int		check_pid(char *pid);
-char	*ft_strdup(char *s);
-
-#endif
+	i = 0;
+	slen = ft_strlen(s);
+	p = (char *)malloc((slen + 1) * sizeof(char));
+	if (p == NULL)
+		return (NULL);
+	while (i < slen)
+	{
+		p[i] = s[i];
+		i++;
+	}
+	p[i] = '\0';
+	return (p);
+}

@@ -6,7 +6,7 @@
 /*   By: mzelouan <mzelouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 19:59:08 by mzelouan          #+#    #+#             */
-/*   Updated: 2024/04/20 21:36:21 by mzelouan         ###   ########.fr       */
+/*   Updated: 2024/04/25 09:55:07 by mzelouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,34 @@ void	signal_handler(int signal, siginfo_t *client, void *ucontext)
 {
 	static unsigned char	received_byte;
 	static int				bit_counter;
+	static int				init = 1;
 
 	(void)ucontext;
-	if (signal == SIGUSR1)
-		received_byte |= (1 << (7 - bit_counter));
-	bit_counter++;
-	if (bit_counter == 8)
+	if (init == 1)
 	{
-		write(1, &received_byte, 1);
+		init = 0;
 		if (kill(client->si_pid, SIGUSR1) == -1)
 			ft_print_error("Error : kill function\n");
-		if (received_byte == '\0')
-			write(1, "\n", 1);
-		received_byte = 0;
-		bit_counter = 0;
 	}
+	else 
+	{
+		if (signal == SIGUSR1)
+			received_byte |= (1 << (7 - bit_counter));
+		bit_counter++;
+		if (bit_counter == 8)
+		{
+			write(1, &received_byte, 1);
+			if (received_byte == '\0')
+			{
+				write(1, "\n", 1);
+				init = 1;
+			}
+			received_byte = 0;
+			bit_counter = 0;
+		}
+	}
+	if (kill(client->si_pid, SIGUSR1) == -1)
+		ft_print_error("Error : kill function\n");
 }
 
 int	main(void)

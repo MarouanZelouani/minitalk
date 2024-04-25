@@ -6,7 +6,7 @@
 #    By: mzelouan <mzelouan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/02/08 19:58:53 by mzelouan          #+#    #+#              #
-#    Updated: 2024/03/13 20:03:45 by mzelouan         ###   ########.fr        #
+#    Updated: 2024/04/25 09:59:15 by mzelouan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ CFILES =	./utils/ft_atoi.c\
 			./utils/ft_putnbr_fd.c\
 			./utils/ft_putstr_fd.c\
 			./utils/ft_strlen.c\
+			./utils/ft_strdup.c\
 
 CLIENT_C =	./src/client.c
 
