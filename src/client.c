@@ -6,7 +6,7 @@
 /*   By: mzelouan <mzelouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 19:59:03 by mzelouan          #+#    #+#             */
-/*   Updated: 2024/04/26 06:48:57 by mzelouan         ###   ########.fr       */
+/*   Updated: 2024/04/29 08:55:22 by mzelouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	stor(int *i, int *j)
 	if (*j == ft_strlen(g_msg) + 1)
 	{
 		free(g_msg);
-		ft_print("mgs wsal 3la slama\n");
+		ft_print("mgs wsal\n");
 	}
 }
 
@@ -53,9 +53,8 @@ int	main(int ac, char **av)
 {
 	struct sigaction	sa;
 	int					server_pid;
-
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SA_SIGINFO | SA_RESTART;
+	
+	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &signal_handler;
 	if (ac != 3 || !av[1][0] || !av[2][0])
 		ft_print("Usage : ./client <server_pid> <message>\n");
@@ -63,7 +62,8 @@ int	main(int ac, char **av)
 	if (check_pid(av[1]) || server_pid <= 0)
 		ft_print("Error : Bad ID\n");
 	g_msg = ft_strdup(av[2]);
-	kill(server_pid, SIGUSR1);
+	if (kill(server_pid, SIGUSR1))
+		ft_print("Error: kill function!\n");
 	if (sigaction(SIGUSR1, &sa, NULL) == -1)
 		ft_print("Error : sigaction function");
 	while (1)
