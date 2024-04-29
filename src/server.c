@@ -6,7 +6,7 @@
 /*   By: mzelouan <mzelouan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 19:59:08 by mzelouan          #+#    #+#             */
-/*   Updated: 2024/04/29 08:49:36 by mzelouan         ###   ########.fr       */
+/*   Updated: 2024/04/29 08:59:44 by mzelouan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	main(void)
 {
 	struct sigaction	sa;
 
-	sigemptyset(&sa.sa_mask);
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = &signal_handler;
 	ft_putstr_fd("Server ID : ", 1);
